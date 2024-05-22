@@ -6,7 +6,11 @@ setup(
     packages=find_packages(),
     install_requires=[
         'numpy',
-        'matplotlib'
+        'pandas',
+        'matplotlib',
+        'scipy',
+        'scikit-image',
+        'plotly',
     ],
     author='Damir Barashev',
     author_email='barashevdamir@yandex.ru',
