@@ -17,3 +17,24 @@
 ```
 pip install .
 ```
+
+## Описание модулей
+
+- ### p01_Binary_amplitude_Grating
+
+Модуль ```p01_Binary_amplitude_Grating``` включает в себя функцию ```create_rectangular_amplitude_grating```, которая рассчитывает прямоугольную амплитудную решетку, а также визуализирует выход решетки в дальней зоне.
+
+#### Пример использования
+
+```python
+import p01_Binary_amplitude_Grating as bg
+
+# Параметры решетки
+N = 500  # Размер матрицы (по умолчанию 500)
+P = 100  # Период решетки (по умолчанию 100)
+FF = 0.5  # Скважность (Fill factor) (по умолчанию 0.5)
+
+# Создание и отображение решетки
+bg.create_rectangular_amplitude_grating(N, P, FF)
+```
+
