@@ -3,7 +3,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 import plotly.subplots as sp
 
-def create_rectangular_amplitude_grating(N=500, P=100, FF=0.5, vmin=0, vmax=1):
+def create_rectangular_amplitude_grating(N=500, P=100, FF=0.5):
     """
     Рассчитывает 1D прямоугольную амплитудную решетку и отображает выход решетки в дальней зоне.
 
@@ -11,8 +11,6 @@ def create_rectangular_amplitude_grating(N=500, P=100, FF=0.5, vmin=0, vmax=1):
     N (int): Размер матрицы
     P (int): Период решетки
     FF (float): Скважность (Fill factor)
-    vmin (float): Минимальное значение для отображения на графике
-    vmax (float): Максимальное значение для отображения на графике
 
     Returns:
     None
