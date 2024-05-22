@@ -1,7 +1,9 @@
 import numpy as np
-import matplotlib.pyplot as plt
+import plotly.graph_objects as go
+import plotly.express as px
+import plotly.subplots as sp
 
-def create_rectangular_amplitude_grating(N=500, P=100, FF=0.5):
+def create_rectangular_amplitude_grating(N=500, P=100, FF=0.5, vmin=0, vmax=1):
     """
     Рассчитывает 1D прямоугольную амплитудную решетку и отображает выход решетки в дальней зоне.
 
@@ -9,6 +11,8 @@ def create_rectangular_amplitude_grating(N=500, P=100, FF=0.5):
     N (int): Размер матрицы
     P (int): Период решетки
     FF (float): Скважность (Fill factor)
+    vmin (float): Минимальное значение для отображения на графике
+    vmax (float): Максимальное значение для отображения на графике
 
     Returns:
     None
@@ -29,41 +33,49 @@ def create_rectangular_amplitude_grating(N=500, P=100, FF=0.5):
     # A = np.tile(unit, (1, N // P))
 
     # Построение графика решетки
-    plt.figure()
-    plt.plot(A[0, :])
-    plt.show()
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(y=A[0, :], mode='lines', name='Прямоугольная амплитудная решетка (1D)'))
+    fig.update_layout(title='Прямоугольная амплитудная решетка (1D)', xaxis_title='Позиция', yaxis_title='Амплитуда')
+    fig.show()
 
     # Отображение матрицы
-    plt.figure()
-    plt.imshow(A, cmap='gray')
-    plt.show()
+    fig = px.imshow(A, color_continuous_scale='gray', title='Прямоугольная амплитудная решетка (2D)')
+    fig.update_layout(coloraxis_colorbar={'title': 'Амплитуда'})
+    fig.show()
 
     # Наблюдение выхода решетки в дальней зоне
     E = np.fft.fftshift(np.fft.fft2(A))  # fftshift используется для упорядочивания членов в их естественном порядке
     IN = (np.abs(E) / (N * N)) ** 2  # Вычисление интенсивности
 
     # Отображение реальной части E
-    plt.figure()
-    plt.subplot(2, 1, 1)
-    plt.imshow(np.real(E), cmap='gray')
-    plt.subplot(2, 1, 2)
-    plt.plot(np.real(E[N // 2, :]))
-    plt.show()
+    fig = sp.make_subplots(rows=2, cols=1, subplot_titles=('Реальная часть E', 'Реальная часть (1D)'))
+    fig.add_trace(go.Heatmap(z=np.real(E), colorscale='gray'), row=1, col=1)
+    fig.add_trace(go.Scatter(y=np.real(E[N // 2, :]), mode='lines'), row=2, col=1)
+    fig.update_xaxes(title_text='X', row=1, col=1)
+    fig.update_yaxes(title_text='Y', row=1, col=1)
+    fig.update_xaxes(title_text='Позиция', row=2, col=1)
+    fig.update_yaxes(title_text='Реальная часть', row=2, col=1)
+    fig.show()
 
     # Отображение угловой части E
-    plt.figure()
-    plt.subplot(2, 1, 1)
-    plt.imshow(np.angle(E), cmap='gray')
-    plt.subplot(2, 1, 2)
-    plt.plot(np.angle(E[N // 2, :]))
-    plt.show()
+    fig = sp.make_subplots(rows=2, cols=1, subplot_titles=('Угловая часть E', 'Угловая часть (1D)'))
+    fig.add_trace(go.Heatmap(z=np.angle(E), colorscale='gray'), row=1, col=1)
+    fig.add_trace(go.Scatter(y=np.angle(E[N // 2, :]), mode='lines'), row=2, col=1)
+    fig.update_xaxes(title_text='X', row=1, col=1)
+    fig.update_yaxes(title_text='Y', row=1, col=1)
+    fig.update_xaxes(title_text='Позиция', row=2, col=1)
+    fig.update_yaxes(title_text='Угол', row=2, col=1)
+    fig.show()
 
     # Отображение интенсивности
-    plt.figure()
-    plt.subplot(2, 1, 1)
-    plt.imshow(IN, cmap='gray')
-    plt.subplot(2, 1, 2)
-    plt.plot(IN[N // 2, :])
-    plt.show()
+    fig = sp.make_subplots(rows=2, cols=1, subplot_titles=('Интенсивность', 'Интенсивность (1D)'))
+    fig.add_trace(go.Heatmap(z=IN, colorscale='gray'), row=1, col=1)
+    fig.add_trace(go.Scatter(y=IN[N // 2, :], mode='lines'), row=2, col=1)
+    fig.update_xaxes(title_text='X', row=1, col=1)
+    fig.update_yaxes(title_text='Y', row=1, col=1)
+    fig.update_xaxes(title_text='Позиция', row=2, col=1)
+    fig.update_yaxes(title_text='Интенсивность', row=2, col=1)
+    fig.show()
+
 
 create_rectangular_amplitude_grating()
