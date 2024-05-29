@@ -63,3 +63,5 @@ def create_2d_rectangular_amplitude_grating(N=500, Px=100, Py=100, FFx=0.5, FFy=
     fig.update_xaxes(title_text='Позиция', row=2, col=1)
     fig.update_yaxes(title_text='Интенсивность', row=2, col=1)
     fig.show()
+
+create_2d_rectangular_amplitude_grating()
