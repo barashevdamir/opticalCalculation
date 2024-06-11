@@ -25,7 +25,7 @@ def create_2d_rectangular_amplitude_grating(N=500, Px=100, Py=100, FFx=0.5, FFy=
     # Конструирование решетки
     O1 = np.ones((N, int(FFx * Px)))
     Z1 = np.zeros((N, int(Px - FFy * Px)))
-    unit1 = np.hstack((O1, Z1))
+    unit1 = np.hstack((O1, Z1))     # Горизонтальное объединение матриц O1 и Z1
     A1 = np.tile(unit1, (1, int(N // Px)))  # Создание 1D решетки
 
     # Отображение матрицы
@@ -35,7 +35,7 @@ def create_2d_rectangular_amplitude_grating(N=500, Px=100, Py=100, FFx=0.5, FFy=
 
     O2 = np.ones((int(FFy * Py), N))
     Z2 = np.zeros((int(Py - FFy * Py), N))
-    unit2 = np.vstack((O2, Z2))
+    unit2 = np.vstack((O2, Z2))     # Вертикальное объединение матриц O2 и Z2
     A2 = np.tile(unit2, (int(N // Py), 1))
 
     # Отображение матрицы
